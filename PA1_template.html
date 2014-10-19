@@ -77,6 +77,7 @@ names(tidy_activity_dataset) &lt;- c(&quot;Date&quot;,&quot;Sum&quot;,&quot;Mean
 <p>2.Calculate and report the mean and median total number of steps taken per day</p>
 <pre class="r"><code>org_mean &lt;- mean(tidy_activity_dataset_sum$x,na.rm = T)
 org_median &lt;- median(tidy_activity_dataset_sum$x,na.rm = T)</code></pre>
+<p>The mean is 1.076618910^{4} and the median is 1.076510^{4}</p>
 </div>
 <div id="now-we-shall-calculate-the-average-daily-activity-pattern" class="section level2">
 <h2>Now we shall calculate the average daily activity pattern</h2>
@@ -90,8 +91,8 @@ org_median &lt;- median(tidy_activity_dataset_sum$x,na.rm = T)</code></pre>
 <pre class="r"><code>tidy_timeseries_dataset_sum &lt;- aggregate(activity_dataset$steps, by=list(activity_dataset$interval), &quot;sum&quot;, na.rm = T)
 tidy_timeseries_dataset &lt;- cbind(tidy_timeseries_dataset,tidy_timeseries_dataset_sum$x)
 names(tidy_timeseries_dataset) &lt;- c(&quot;Interval&quot;,&quot;Mean&quot;,&quot;Sum&quot;)
-tidy_timeseries_dataset[which.max(tidy_timeseries_dataset$Sum),]$Interval</code></pre>
-<pre><code>## [1] 835</code></pre>
+max_steps &lt;- tidy_timeseries_dataset[which.max(tidy_timeseries_dataset$Sum),]$Interval</code></pre>
+<p>The maximum number of steps taken is 835</p>
 </div>
 <div id="imputing-missing-values" class="section level2">
 <h2>Imputing missing values</h2>
@@ -104,8 +105,9 @@ tidy_timeseries_dataset[which.max(tidy_timeseries_dataset$Sum),]$Interval</code>
 ## FALSE  TRUE 
 ## 15264  2304</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. Here we have used mean for that day</li>
+<li>Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated.</li>
 </ol>
+<p>The strategy that has been devised is to fill in the NA values we have taken the mean of that particular interval</p>
 <pre class="r"><code>fresh_tidy_activity_dataset &lt;- activity_dataset
 for(i in 1:nrow(fresh_tidy_activity_dataset))
   {
