@@ -36,6 +36,8 @@ org_mean <- mean(tidy_activity_dataset_sum$x,na.rm = T)
 org_median <- median(tidy_activity_dataset_sum$x,na.rm = T)
 ```
 
+The mean is `r org_mean` and the median is `r org_median`
+
 Now we shall calculate the average daily activity pattern
 ---------------------------------------------------------
 
@@ -53,8 +55,10 @@ plot(tidy_timeseries_dataset,type="l", xlab = "5-minute interval", ylab = "Avera
 tidy_timeseries_dataset_sum <- aggregate(activity_dataset$steps, by=list(activity_dataset$interval), "sum", na.rm = T)
 tidy_timeseries_dataset <- cbind(tidy_timeseries_dataset,tidy_timeseries_dataset_sum$x)
 names(tidy_timeseries_dataset) <- c("Interval","Mean","Sum")
-tidy_timeseries_dataset[which.max(tidy_timeseries_dataset$Sum),]$Interval
+max_steps <- tidy_timeseries_dataset[which.max(tidy_timeseries_dataset$Sum),]$Interval
 ```
+
+The maximum number of steps taken is `r max_steps`
 
 Imputing missing values
 ------------------------------
@@ -65,7 +69,9 @@ Note that there are a number of days/intervals where there are missing values (c
 table(is.na(activity_dataset$steps))
 ```
 
-2. Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. Here we have used mean for that day
+2. Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. 
+
+The strategy that has been devised is to fill in the NA values we have taken the mean of that particular interval
 ```{r}
 fresh_tidy_activity_dataset <- activity_dataset
 for(i in 1:nrow(fresh_tidy_activity_dataset))
