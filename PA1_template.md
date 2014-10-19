@@ -91,14 +91,16 @@ Note that there are a number of days/intervals where there are missing values (c
 1. Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
 
 ```r
-table(is.na(activity_dataset$steps))
+table(is.na(activity_dataset$steps))["TRUE"]
 ```
 
 ```
-## 
-## FALSE  TRUE 
-## 15264  2304
+## TRUE 
+## 2304
 ```
+
+
+
 
 2. Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. 
 
@@ -177,13 +179,6 @@ Using ggplot Plot
 
 ```r
 library(ggplot2)
-```
-
-```
-## Use suppressPackageStartupMessages to eliminate package startup messages.
-```
-
-```r
 g <- ggplot(fresh_final__tidy_activity_dataset, aes(interval,steps))
 g + labs(title = "Time Series Data", x = "Intervals", y = "Number of Steps") + facet_grid(day~.) + geom_line(color = "blue", alpha = 1/2) + theme_bw(base_family = "Times")
 ```

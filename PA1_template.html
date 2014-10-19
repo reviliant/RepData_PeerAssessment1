@@ -281,12 +281,11 @@ max_steps &lt;- tidy_timeseries_dataset[which.max(tidy_timeseries_dataset$Sum),]
 <li>Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)</li>
 </ol>
 
-<pre><code class="r">table(is.na(activity_dataset$steps))
+<pre><code class="r">table(is.na(activity_dataset$steps))[&quot;TRUE&quot;]
 </code></pre>
 
-<pre><code>## 
-## FALSE  TRUE 
-## 15264  2304
+<pre><code>## TRUE 
+## 2304
 </code></pre>
 
 <ol>
@@ -358,12 +357,7 @@ fresh_final__tidy_activity_dataset &lt;- aggregate(steps ~ interval + day, data 
 <p>Using ggplot Plot</p>
 
 <pre><code class="r">library(ggplot2)
-</code></pre>
-
-<pre><code>## Use suppressPackageStartupMessages to eliminate package startup messages.
-</code></pre>
-
-<pre><code class="r">g &lt;- ggplot(fresh_final__tidy_activity_dataset, aes(interval,steps))
+g &lt;- ggplot(fresh_final__tidy_activity_dataset, aes(interval,steps))
 g + labs(title = &quot;Time Series Data&quot;, x = &quot;Intervals&quot;, y = &quot;Number of Steps&quot;) + facet_grid(day~.) + geom_line(color = &quot;blue&quot;, alpha = 1/2) + theme_bw(base_family = &quot;Times&quot;)
 </code></pre>
 
